@@ -18,7 +18,7 @@ void addPlayer(std::string &name) {
     std::cin >> name;
 }
 
-void getPlayerInput(int &x, int &y) {
+void setPlayerInput(int &x, int &y) {
     while (true) {
         std::cout << "Coordinates in order of x, y separated by a space (ex: 3 2) : ";
         std::cin >> x;

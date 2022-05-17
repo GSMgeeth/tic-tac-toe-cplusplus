@@ -1,5 +1,11 @@
 #include "board.hpp"
 
+std::vector<char>& generateBoard() {
+    std::vector<char> board(BOARD_SIZE, '-');
+
+    return board;
+}
+
 void initializeBoard(std::vector<char> &board) {
     std::fill(board.begin(), board.end(), '-');
 }

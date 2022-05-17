@@ -1,29 +1,36 @@
 #include "board.hpp"
 
-std::vector<char>& generateBoard() {
-    std::vector<char> board(BOARD_SIZE, '-');
-
-    return board;
-}
-
 void initializeBoard(std::vector<char> &board) {
     std::fill(board.begin(), board.end(), '-');
 }
 
 void drawBoard(std::vector<char> const &board) {
-    for (int i = 0; i < board.size(); i++) {
+    for (int i = 0; i < BOARD_VECTOR_SIZE; i++) {
         std::cout << board[i] << " ";
 
-        if (i % 3 == 1) {
+        if ((i + 1) % BOARD_SIZE == 0) {
             std::cout << std::endl;
         }
     }
 }
 
+int getVectorIndex(int const &x, int const &y) {
+    int i = x * BOARD_SIZE + y;
+
+    if (i < 0 || i > (BOARD_VECTOR_SIZE - 1)) {
+        i = -1;
+    }
+
+    return i;
+}
+
 void updateBoard(std::vector<char> &board, int const &x, int const &y, char const &symbol) {
     int const index = getVectorIndex(x, y);
+    char &cell = board.at(index);
 
-    board.insert(board.begin() + index, symbol);
+    if (cell == '-') {
+        cell = symbol;
+    }
 }
 
 bool isWonHorizontally(std::vector<char> const &board, int const &x, int const &y) {
@@ -92,14 +99,4 @@ bool isWon(std::vector<char> const &board, int const &x, int const &y) {
         isWonVertically(board, x, y) ||
         isWonDiagonally(board, x, y)
     );
-}
-
-int getVectorIndex(int const &x, int const &y) {
-    int i = x * BOARD_SIZE + y;
-
-    if (i < 0 || i > (BOARD_SIZE * BOARD_SIZE - 1)) {
-        i = -1;
-    }
-
-    return i;
 }
